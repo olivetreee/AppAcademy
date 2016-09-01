@@ -91,7 +91,7 @@ def substrings(string)
   sub_strs = []
 
   string.length.times do |start_idx|
-    ((start_idx...string.length)).each do |end_idx|
+    (start_idx...string.length).each do |end_idx|
       sub_str = string[start_idx..end_idx]
       sub_strs << sub_str unless sub_strs.include?(sub_str)
     end
@@ -100,10 +100,7 @@ def substrings(string)
 end
 
 def subwords(word, dictionary)
-  sub_strs = substrings(word)
-  sub_strs.select do |sub_str|
-    dictionary.include?(sub_str)
-  end
+  substrings(word).select {|sub_str| dictionary.include?(sub_str)}
 end
 
 # ### Doubler
@@ -176,9 +173,11 @@ class Array
   end
 
   def my_inject(&prc_inject)
-    initial_val = self.first
-    self.drop(1).my_each { |el| initial_val = prc_inject.call(initial_val, el) }
-    initial_val
+    reduced_value = self.first
+    self.drop(1).my_each do |el|
+      reduced_value = prc_inject.call(reduced_value, el)
+    end
+    reduced_value
   end
 end
 
@@ -192,7 +191,7 @@ end
 # ```
 
 def concatenate(strings)
-  concat_str = strings.inject do |word_1,word_2|
+  strings.inject do |word_1,word_2|
     word_1 += word_2
   end
 end

@@ -1,15 +1,12 @@
 # require 'byebug'
 
-def reverser (&blabla)
-  string = blabla.call
-  words = string.split(" ")
-  words.map! {|word| word.reverse}
-  words.join(" ")
+def reverser (&bloc)
+  words = bloc.call.split(" ")
+  words.map {|word| word.reverse}.join(" ")
 end
 
-def adder (num=1,&proc)
-  num_2 = proc.call
-  num+num_2
+def adder (num=1,&bloc)
+  num + bloc.call
 end
 
 def repeater (num=1,&proc)
