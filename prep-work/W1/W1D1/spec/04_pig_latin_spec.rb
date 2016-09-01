@@ -78,6 +78,11 @@ describe "#translate" do
     expect(s).to eq("eThay ickQuay ownBray oxfay, itay umpedjay")
   end
 
+  it "translates other interesting words" do
+    s = translate("qubyte")
+    expect(s).to eq("ytequbay")
+  end
+
 
   # Test-driving bonus:
   # * write a test asserting that capitalized words are still capitalized (but with a different initial capital letter, of course)
