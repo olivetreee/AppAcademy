@@ -1,3 +1,5 @@
+require 'byebug'
+
 # String: Caesar cipher
 #
 # * Implement a Caesar cipher: http://en.wikipedia.org/wiki/Caesar_cipher
@@ -16,24 +18,44 @@
 # * Lastly, be careful of the letters at the end of the alphabet, like
 #   `"z"`! Ex.: `caesar("zany", 2) # => "bcpa"`
 
-def shift_char(char_code, shift)
-  shift_count = 0
-  while shift_count < shift
-    char_code = char_code == 122 ? 97 : char_code + 1
-    shift_count += 1
-  end
-  char_code
-end
 
+#STUDENT'S NOTE
+#The following accounts for strings, punctuation, symbols and lower/uppercase letters.
 
 class String
   def caesar(shift)
-    char_codes = self.chars.map {|char| char.ord}  #converts to ASCII
-    shifted_chars = char_codes.map {|char| shift_char(char,shift)}  #shifts all chars by adding 1 to the ASCII code
-    to_char_converters = Array.new(shifted_chars.length, "c").join  #needed for #pack method
-    shifted_chars.pack(to_char_converters)
+    # self.split(" ").each do |word|
+      char_codes = convert_to_ascii  #converts to ASCII
+      shifted_chars = char_codes.map {|char| shift_char(char,shift)}  #shifts all chars
+      shifted_chars.join
+    # end
   end
+
+  def shift_char(char_code, shift)
+    if valid_letter?(char_code)
+      char_code += shift
+      char_code -= 26 if char_code > case_limit(char_code)
+    end
+    char_code.chr
+  end
+
+  def convert_to_ascii
+    self.chars.map {|char| char.ord}
+  end
+
+  def valid_letter?(char_code)
+    is_lower = (97..122).cover?(char_code)
+    is_upper = (65..90).cover?(char_code)
+    is_lower || is_upper
+  end
+
+  def case_limit(char_code)
+    return 122 if (97..122).cover?(char_code) #z is last lowercase
+    90 #Z is last uppercase
+  end
+
 end
+
 
 # Hash: Difference
 #
@@ -49,7 +71,7 @@ end
 # ```
 
 class Hash
-  def difference_v1(other_hash)
+  def difference(other_hash)
     new_hash_1 = {}
     new_hash_2 = {}
     new_hash_1 = self.reject {|key,value| other_hash.key?(key)}
@@ -57,10 +79,16 @@ class Hash
     new_hash_1.merge(new_hash_2)
   end
 
-  def difference(other_hash)
+  def difference_v2(other_hash)
     new_hash = {}
-    self.keys.each {|key| new_hash[key] = self[key] unless other_hash.key?(key)}
-    other_hash.keys.each {|key| new_hash[key] = other_hash[key] unless self.key?(key)}
+    self.keys.each do |key|
+      new_hash[key] = self[key] unless other_hash.key?(key)
+    end
+
+    other_hash.keys.each do |key|
+      new_hash[key] = other_hash[key] unless self.key?(key)
+    end
+
     new_hash
   end
 
@@ -123,31 +151,31 @@ end
 # including 15) and the values are the characters to use (up to and
 # including `F`).
 
-def convert_to_hex(num)
-  return num if num < 10
-  num += 87
-  num.chr
-end
-
 class Fixnum
 
-  #@@@@@@@@@@ GO BACK TO THIS @@@@@@@@@@#
   def stringify(base)
     num_factors = 0
     base_factors = []
 
     while true
       factor = base**num_factors  #This will be 1,2,4,8,16 etc for base 2, for example
-      break if self/factor == 0  #Finishes when the factor is bigger than the self number
+      break if self/factor == 0  #Finishes when the factor is bigger than self
 
       base_factors << (self / factor) % base  #This will get 101010 on base 2, for example
-      base_factors[-1] = convert_to_hex(base_factors[-1]) if base == 16  #If the base is 16, convert the last number to hex
+      base_factors[-1] = convert_to_hex(base_factors[-1]) if base == 16  #If the base is 16, convert the number to hex
       num_factors+=1
     end
     base_factors.reverse.join
   end
 
-  def stringify_recursive_solution(base)
+  def convert_to_hex(num)
+    return num if num < 10
+    num += 87
+    num.chr
+  end
+
+
+  def stringify_from_solution(base)
     # handle the case where self == 0.
     return "0" if self == 0
 
@@ -175,6 +203,7 @@ class Fixnum
       digits[low_digit]  #TR: digits[1]
     end
   end
+
 
 end
 

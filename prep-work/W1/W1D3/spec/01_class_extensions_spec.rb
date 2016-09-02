@@ -14,6 +14,20 @@ describe String do
     it "encodes a longer word" do
       expect("catzhatz".caesar(2)).to eq("ecvbjcvb")
     end
+
+    it "encodes a sentence" do
+      expect("this is a sentence".caesar(13)).to eq("guvf vf n fragrapr")
+    end
+
+    it "encodes a sentence with symbols and punctuation" do
+      expect("the name's bond, james bond".caesar(7)).to eq("aol uhtl'z ivuk, qhtlz ivuk")
+    end
+
+    it "encodes a sentence with uppercase letters" do
+      expect("It's 'Levi-[oh]-sa', not 'Levio-[sah]'.".caesar(18)).to eq("Al'k 'Dwna-[gz]-ks', fgl 'Dwnag-[ksz]'.")
+    end
+
+
   end
 end
 
