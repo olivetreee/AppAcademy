@@ -1,3 +1,5 @@
+require "byebug"
+
 # MyHashSet
 #
 # Ruby provides a class named `Set`. A set is an unordered collection of
@@ -81,8 +83,9 @@ class MyHashSet
   end
 
   def ==(object)
-    return false unless is_myhashset = object.is_a?(MyHashSet)
-    return false unless self.to_a.length == object.to_a.length
+    # RETURNING ERROR
+    return false unless object.is_a?(MyHashSet)
+    return false unless to_a.length == object.to_a.length
     self.minus(object).to_a.length == 0
   end
 
