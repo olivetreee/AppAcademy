@@ -1,4 +1,4 @@
-class Integer
+class Fixnum
 
   ONES_IN_WORDS = {
     0 => "zero",
@@ -62,7 +62,7 @@ class Integer
       end
     else
       if num/1000 == 0 #We're in the hundreds
-        hundreds_to_thousand(num)
+        hundreds_through_thousand(num)
       else #We're above 999
         thousand_and_greater(num)
       end
@@ -71,7 +71,7 @@ class Integer
 
   private
 
-  def hundreds_to_thousand(num)
+  def hundreds_through_thousand(num)
     hundred = num / 100
     tens = num % 100
     tens_word = tens == 0 ? "" : " #{tens.in_words}" #so it doesn't print "zero"
@@ -80,17 +80,16 @@ class Integer
 
   def thousand_and_greater(num)
     words = []
-    power_of_thousands = ((num.to_s.length)-1)/3 #This is 1000 ** power_of_thousands
-    power_of_thousands.downto(1) do |power|
-      thousands = 1000 ** power #thousand, million, billion or trillion
-      sub_num = num / thousands #how many (thousand, million, billion or trillion)
-      next if sub_num == 0 #if no (thousand, million, billion or trillion), skip the rest to not return "zero"
-      num %= thousands #new number becomes the rest, minus the (thousand, million, billion or trillion)
-      words << sub_num.in_words
-      words << MAGNITUDES[thousands]
+    thousands_exponent = ((num.to_s.length)-1)/3 #This is 1000 ** thousands_exponent
+    thousands_exponent.downto(1) do |exponent|
+      thousands_powered = 1000 ** exponent #thousand, million, billion or trillion
+      thousands_units = num / thousands_powered #how many (thousand, million, billion or trillion)
+      next if thousands_units == 0 #so it doesn't print "zero"
+      words << [thousands_units.in_words, MAGNITUDES[thousands_powered]]
+      num %= thousands_powered #number becomes the rest, minus the (thousand, million, billion or trillion)
     end
-    sub_num = num % 1000
-    words << sub_num.in_words unless sub_num == 0 #so it doesn't print "zero"
+    thousands_units = num % 1000
+    words << thousands_units.in_words unless thousands_units == 0 #so it doesn't print "zero"
     words.join(" ")
   end
 
