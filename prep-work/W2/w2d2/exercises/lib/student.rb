@@ -1,3 +1,5 @@
+require_relative 'course'
+
 class Student
 
   attr_reader :first_name, :last_name, :courses
@@ -35,13 +37,9 @@ class Student
   end
 
   def has_time_conflict?(course)
-    @courses.each do |course_enrolled|
-      break unless course_enrolled.respond_to?(:days) #Some double test cases don't have #days
-      course_enrolled.days.each do |day|
-        return true if course.days.include?(day) && course_enrolled.time_block == course.time_block
-      end
+    @courses.any? do |course_enrolled|
+      course.conflicts_with?(course_enrolled)
     end
-    false
   end
 
 end
