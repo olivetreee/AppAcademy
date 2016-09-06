@@ -43,29 +43,32 @@ class TowersOfHanoi
 
 attr_reader :towers
 
-  def initialize(towers = [[3,2,1],[],[]])
-    @towers = towers
-    @initial_tower_idx = 0
-    @initial_tower_size = towers.size
+  def initialize(num_of_pieces = 3)
+    @num_of_pieces = num_of_pieces
+    @towers = initialize_towers(@num_of_pieces)
+    @number_of_moves = 0
   end
 
   def play
-    # store_initial_tower
     until won?
       puts "Current state:"
       render
-      puts "Select a tower:"
+
+      puts "Select a tower to move from:"
       tower_from = gets.chomp.to_i - 1
+
       puts "Where are you moving the piece to?"
       tower_to = gets.chomp.to_i - 1
+
       unless valid_move?(tower_from,tower_to)
         puts "! INVALID MOVE !"
         puts ""
         next
       end
       move(tower_from, tower_to)
+      @number_of_moves+=1
     end
-    puts "FINISHED!!"
+    end_game
   end
 
   def render
@@ -74,11 +77,7 @@ attr_reader :towers
   end
 
   def won?
-    # byebug
-    @towers.each_with_index do |discs,tower|
-      return true if tower_fully_ordered?(discs,tower)
-    end
-    false
+    @towers[0].empty? && @towers[1..2].any?(&:empty?)
   end
 
   def valid_move?(from_num, to_num)
@@ -86,23 +85,37 @@ attr_reader :towers
     from = @towers[from_num]
     to = @towers[to_num]
 
-    #Can't pick from / place on non-existing tower
+    #Can't pick from / move to non-existing tower
     return false if from_num+1 > @towers.count || to_num+1 > @towers.count
 
     #Can't pick from empty tower
     return false if from.empty?
 
     #No disk may be placed on top of a smaller disk.
-    return false if !(to.empty?) && from.last > to.last && to.first != 0
+    return false if !(to.empty?) && from.last > to.last
 
     true
 
   end
 
-  def move(from_num, to_num)
-    from = @towers[from_num]
-    to = @towers[to_num]
-    @towers[to_num] << @towers[from_num].pop
+  def move(from_idx, to_idx)
+    @towers[to_idx] << @towers[from_idx].pop
+  end
+
+  def initialize_towers(num_of_towers)
+    towers = [[]]
+    num_of_towers.downto(1) { |tower| towers[0] << tower }
+    2.times {towers << []}
+    towers
+  end
+
+  def end_game
+    render
+    puts "FINISHED!!"
+    min_moves = 2**@num_of_pieces - 1
+    exceeding_moves = @number_of_moves - min_moves
+    puts "It took you #{@number_of_moves} moves to complete."
+    puts "That's #{exceeding_moves} moves above the minimum for #{@num_of_pieces} pieces: #{min_moves}."
   end
 
   private
@@ -116,22 +129,11 @@ attr_reader :towers
     puts str
   end
 
-  def store_initial_tower
-    initial = 0
-    @towers.each_with_index do |tower,idx|
+end
 
-      unless tower.first == 0
-        @initial_tower_size = tower.count
-        @initial_tower_idx = idx
-        break
-      end
-
-    end
-  end
-
-  def tower_fully_ordered?(discs, tower)
-    sorted_discs = (1..@initial_tower_size).to_a.reverse #create array of sorted discs to simulate initial state
-    discs.count == @initial_tower_size && discs == sorted_discs && tower != @initial_tower_idx
-  end
-
+if __FILE__ == $PROGRAM_NAME
+  puts "How many pieces?"
+  num_of_towers = gets.chomp.to_i
+  game = TowersOfHanoi.new(num_of_towers)
+  game.play
 end
