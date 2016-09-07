@@ -12,20 +12,19 @@
 #   `shuffle` method in array.
 
 def guessing_game
-  guessed_number = -1 #Starting at a value that will never be the computer_number
-  computer_number = computer_chooses_number
+  secret_number = computer_chooses_number
+  guessed_number = secret_number + 1
   guesses = 0
-  until guessed?(guessed_number, computer_number)
-    puts "guess a number:"
+
+  until guessed?(guessed_number, secret_number)
+    puts "Guess a number:"
     guessed_number = gets.chomp.to_i
-    puts guessed_number
-    check_guess(guessed_number,computer_number)
+    check_guess(guessed_number,secret_number)
     guesses += 1
   end
-  puts computer_number
-  puts guesses
-  # puts "The number was #{computer_number}"
-  # puts "It took you #{guesses} guesses"
+
+  puts "The secret number was #{secret_number}."
+  puts "You guessed it after #{guesses} guesses."
 end
 
 def computer_chooses_number
@@ -38,24 +37,25 @@ end
 
 def check_guess(guess,computer)
   if guess > computer
-    puts "too high"
+    response = "too high."
   elsif guess < computer
-    puts "too low"
+    response = "too low."
   else
-    puts "You guessed it!"
+    response = "correct!"
   end
+  puts "You guessed #{guess} and that is #{response}"
 end
 
 # @@@@@@@@@@@@@@@@@@@@@@@ RANDOM FILE LINES @@@@@@@@@@@@@@@@@@@@@@@ #
 
-def shuffle_file
-  puts "Please type the file name"
-  file_name = gets.chomp
-  file_contents = File.readlines(file_name)
-  file_extension = File.extname(file_name)
-  file_name = File.basename(file_name,".*")
+def shuffle_file(file)
+  file_contents = File.readlines(file)
+  file_extension = File.extname(file)
+  file_name = File.basename(file,".*")
+  file_path = File.dirname(file)
+
   shuffled_lines = shuffle_file_lines(file_contents)
-  new_file = "#{file_name}-shuffled#{file_extension}"
+  new_file = "#{file_path}/#{file_name}-shuffled#{file_extension}"
   write_to_file(shuffled_lines, new_file)
   puts "Done! Go check #{new_file}"
 end
@@ -67,11 +67,16 @@ end
 def write_to_file(new_lines,file)
   File.open(file, "w") do |f|
     new_lines.each do |line|
-      f.puts line
+      f.puts line.chomp
     end
   end
 end
 
 if __FILE__ == $PROGRAM_NAME
-  shuffle_file
+  puts "To shuffle a file, please guess the number first:"
+  guessing_game
+  puts ""
+  puts "Now, please type the file name you'd like to shuffle:"
+  file_name = gets.chomp
+  shuffle_file(file_name)
 end
