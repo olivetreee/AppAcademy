@@ -1,3 +1,5 @@
+require 'byebug'
+
 class RPNCalculator
 
 OPERATORS = ["+", "-", "*", "/"]
@@ -9,43 +11,44 @@ attr_reader :value
     @stack = []
   end
 
+  def run_prompt_calculator
+    input_stack = ""
+    while true
+      puts "Type a number, operator or hit ENTER to exit:"
+      puts input_stack
+      input = gets.chomp
+      break if input.empty?
+      input = float_notation(input) unless is_operator?(input)
+      input_stack += " #{input}"
+    end
+    puts "Final answer: #{evaluate(input_stack)}"
+  end
+
+  def run_file_calculator(file)
+    file_content = File.read(file)
+    puts "Evaluating the following: #{file_content}"
+    puts "Final answer: #{evaluate(file_content)}"
+  end
+
+
   def push(val)
     @stack << val
   end
 
   def plus
     calculate(:+)
-    # val_1, val_2 = get_from_stack
-    # @value = val_1 + val_2
-    # @stack << @value
   end
 
   def minus
     calculate(:-)
-    # val_1, val_2 = get_from_stack
-    # @value = val_2.to_f - val_1
-    # @stack << @value
   end
 
   def times
     calculate(:*)
-    # val_1, val_2 = get_from_stack
-    # @value = val_1.to_f * val_2
-    # @stack << @value
   end
 
   def divide
     calculate(:/)
-    # val_1, val_2 = get_from_stack
-    # @value = val_2.to_f / val_1
-    # @stack << @value
-  end
-
-  def tokens(operations_as_string)
-    expression = operations_as_string.split
-    expression.map do |el|
-      el = OPERATORS.include?(el) ? el.to_sym : el.to_i
-    end
   end
 
   def evaluate(operations_as_string)
@@ -58,6 +61,13 @@ attr_reader :value
       end
     end
     @value
+  end
+
+  def tokens(operations_as_string)
+    expression = operations_as_string.split
+    expression.map do |el|
+      el = is_operator?(el) ? el.to_sym : el.to_f
+    end
   end
 
 
@@ -83,5 +93,22 @@ attr_reader :value
       @value = val_2 / val_1
     end
     @stack << @value
+  end
+
+  def is_operator?(input)
+    OPERATORS.include?(input)
+  end
+
+  def float_notation(number)
+    num = number.to_f.to_s
+  end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  calculator = RPNCalculator.new
+  if ARGV.empty?
+    calculator.run_prompt_calculator
+  else
+    calculator.run_file_calculator(ARGV[0])
   end
 end
