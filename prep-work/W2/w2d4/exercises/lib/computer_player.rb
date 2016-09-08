@@ -1,5 +1,3 @@
-require 'byebug'
-
 class ComputerPlayer
 
   attr_reader :name
