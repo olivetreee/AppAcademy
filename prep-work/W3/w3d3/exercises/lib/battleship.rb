@@ -103,6 +103,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   puts "THIS PROGRAM IS NOT MEANT TO BE RUN AS A GAME. ONLY TO PASS THE SPECS."
-  puts "PLEASE RUN THE battleship.rb FILE UNDER THE extras FOLDER FOR THE FULL GAME."
+  puts "PLEASE RUN THE battleship.rb FILE UNDER THE /exercises/extras FOLDER FOR THE FULL GAME."
   puts "HAVE FUN!"
 end

@@ -30,19 +30,23 @@ class HumanPlayer
     setup_choice
   end
 
-  def manual_setup(ships_remaining)
-    puts "Here's the territory, sir."
-    puts "We have #{ships_remaining} ships left, sir."
-    @board.display
-    puts ""
-    print_possibilities
-    choices = [nil]
-    until all_choices_valid?(choices)
-      puts "Please select type code,lat,lon,direction:"
-      choices = gets.chomp
-      choices = choices.split(",")
+  def manual_setup
+    ships_remaining = get_number_of_ships
+    until ships_remaining == 0
+      puts "Here's the territory, sir."
+      puts "We have #{ships_remaining} ships left, sir."
+      @board.display
+      puts ""
+      print_possibilities
+      choices = [nil]
+      until all_choices_valid?(choices)
+        puts "Please select type code,lat,lon,direction:"
+        choices = gets.chomp
+        choices = choices.split(",")
+      end
+      place_ships(choices)
+      ships_remaining -= 1
     end
-    place_ships(choices)
   end
 
   def get_number_of_ships

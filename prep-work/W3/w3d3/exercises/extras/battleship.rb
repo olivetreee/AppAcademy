@@ -77,11 +77,12 @@ class BattleshipGame
   def setup_game(player)
     puts "Hello, Captain #{player.name}!"
     if player.get_setup_choice == "y"
-      ships_remaining = get_number_of_ships
-      until ships_remaining == 0
-        player.manual_setup(ships_remaining)
-        ships_remaining -= 1
-      end
+      @player.manual_setup
+      # ships_remaining = get_number_of_ships
+      # until ships_remaining == 0
+      #   player.manual_setup(ships_remaining)
+      #   ships_remaining -= 1
+      # end
     else
       puts "Ok, I'll position them for you, sir."
       automatic_setup
