@@ -1,5 +1,5 @@
 require 'set'
-require "byebug"
+
 class WordChainer
   def initialize(file_name)
     words = File.readlines(file_name).map(&:chomp)
@@ -9,28 +9,23 @@ class WordChainer
   end
 
   def adjacent_words(word)
-    new_dictionary = @dictionary.select {|ele| ele.length == word.length}
+    @dictionary.select! {|ele| ele.length == word.length}
     results = []
     word.each_char.with_index do |char,idx|
-      # byebug
       ("a".."z").each do |letter|
         new_word = word.dup
         new_word[idx] = letter
-        results += [new_word] if new_dictionary.include?(new_word)
+        results += [new_word] if @dictionary.include?(new_word)
       end
     end
     results.uniq
   end
 
   def run(source_word, target_word)
-    byebug
     @current_words = [source_word]
     @all_seen_words = {source_word => nil}
     until @current_words.empty?
       new_current_words = explore_current_words
-      # new_current_words.each do |new_current_word|
-      #   # puts "#{@all_seen_words[new_current_word]}==>#{new_current_word}"
-      # end
       @current_words = new_current_words
     end
     puts build_path(target_word)
