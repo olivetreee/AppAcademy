@@ -21,7 +21,8 @@ class KnightPathFinder
     [1,2]]
     possible_positions = []
     possible_increments.each do |increment|
-      possible_positions << [start_x+increment.first,start_y+increment.last]
+      new_pos = [start_x+increment.first,start_y+increment.last]
+      possible_positions << new_pos
     end
     possible_positions.select {|position| valid_position?(position)}
   end
@@ -35,7 +36,9 @@ class KnightPathFinder
 
   def new_move_positions(pos)
     all_positions = KnightPathFinder.valid_moves(pos)
-    remains = all_positions.reject {|position| @visited_positions.include?(position)}
+    remains = all_positions.reject do |position|
+      @visited_positions.include?(position)
+    end
     @visited_positions+=remains
     remains
   end
@@ -50,14 +53,12 @@ class KnightPathFinder
       new_moves.each do |move|
         child =  PolyTreeNode.new(move)
         child.parent = node
-        #node.children << child
         queue << child
       end
     end
   end
 
   def find_path(end_position)
-    # return target_node if target_node.value == end_position
     target_node = @start_node.dfs(end_position)
     return "no path found" if target_node.nil?
     current_node = target_node
@@ -72,5 +73,4 @@ end
 
 a = KnightPathFinder.new([0,0])
 a.tree_bfs
-# a.start_node.children.each {|child| p child.value}
 p a.find_path([7,6])
