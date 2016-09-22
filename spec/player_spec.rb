@@ -37,11 +37,6 @@ describe Player do
     end
   end
 
-  context "#discard" do
-    allow(player).to receive(:discard).and_return([0,1])
-    expect(player.hand).to receive(:discard).with([0,1])
-    player.discard
-    #expect player to receive discard and
-  end
+  context "#discard"
 
 end

@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Card
   attr_reader :value, :suit, :numeric_value
 

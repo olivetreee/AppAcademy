@@ -60,6 +60,7 @@ private
   end
 
   def is_four_of_a_kind?
+    cards_that_contain_same_value(4)
   end
 
   def is_full_house?
@@ -81,24 +82,30 @@ private
   end
 
   def is_three_of_a_kind?
-    @cards.any? do |card|
-      count = @cards.count do |card_2|
-        card_2.numeric_value == card.numeric_value
-      end
-      count == 3
-    end
+    cards_that_contain_same_value(3)
   end
 
   def is_two_pair?
-  end
-
-  def is_pair?
+    pair_counts = 0
     @cards.any? do |card|
       count = @cards.count do |card_2|
         card_2.numeric_value == card.numeric_value
       end
-      count == 2
+      pair_counts += 1 if count == 2
     end
+    pair_counts == 4 # four cards are found exactly twice, each pair has two cards that are found twice
   end
 
+  def is_pair?
+    cards_that_contain_same_value(2)
+  end
+
+  def cards_that_contain_same_value(num)
+    @cards.any? do |card|
+      count = @cards.count do |card_2|
+        card_2.numeric_value == card.numeric_value
+      end
+      count == num
+    end
+  end
 end
