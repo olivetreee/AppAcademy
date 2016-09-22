@@ -2,7 +2,7 @@ require 'rspec'
 require 'card'
 
 describe Card do
-  let(:card) {Card.new(0, :heart)}
+  let(:card) {Card.new(14, :heart)}
 
   context "#initialize" do
     it "initializes with a value and a suit" do

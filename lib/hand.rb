@@ -20,6 +20,28 @@ class Hand
     hand_value <=> other_hand.hand_value
   end
 
+  def to_s
+    if is_straight_flush?
+      "Straight Flush"
+    elsif is_four_of_a_kind?
+      "Four of a kind"
+    elsif is_full_house?
+      "Full House"
+    elsif is_flush?
+      "Flush"
+    elsif is_straight?
+      "Straight"
+    elsif is_three_of_a_kind?
+      "Three of a kind"
+    elsif is_two_pair?
+      "Two pair"
+    elsif is_pair?
+      "Pair"
+    else
+      "High Card"
+    end
+  end
+
 private
   def get_cards_value
     @cards.sort!.reverse!
@@ -55,6 +77,14 @@ private
     end
   end
 
+  def highest_card_value
+      @cards.sort.last.numeric_value
+  end
+
+  def is_royal_flush?
+    is_straight_flush? && highest_card_value == 14
+  end
+
   def is_straight_flush?
     is_flush? && is_straight?
   end
@@ -87,7 +117,7 @@ private
 
   def is_two_pair?
     pair_counts = 0
-    @cards.any? do |card|
+    @cards.each do |card|
       count = @cards.count do |card_2|
         card_2.numeric_value == card.numeric_value
       end

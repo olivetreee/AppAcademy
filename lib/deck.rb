@@ -27,7 +27,7 @@ class Deck
     suits = [:heart, :diamond, :spade, :club]
 
     suits.each do |suit|
-      0.upto(12) do |val|
+      2.upto(14) do |val|
         @cards << Card.new(val, suit)
       end
     end

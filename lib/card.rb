@@ -1,8 +1,8 @@
 class Card
-  attr_reader :value, :suit, :numeric_value
+  attr_accessor :numeric_value
+  attr_reader :value, :suit
 
   STRING_VALUES = {
-    "A" => "Ace",
     "2" => "Two",
     "3" => "Three",
     "4" => "Four",
@@ -14,18 +14,19 @@ class Card
     "10" => "Ten",
     "J" => "Jack",
     "Q" => "Queen",
-    "K" => "King"
+    "K" => "King",
+    "A" => "Ace"
   }
 
   def initialize(value, suit)
-    @numeric_value = value + 1
+    @numeric_value = value
     self.value = value
     self.suit = suit
   end
 
   def value=(val)
-    raise "Invalid value" unless (0..12).cover?(val)
-    @value = valid_values[val]
+    raise "Invalid value" unless (2..14).cover?(val)
+    @value = valid_values[val-2]
   end
 
 
@@ -48,7 +49,7 @@ class Card
   private
 
   def valid_values
-    ["A"] + (2..10).to_a.map(&:to_s) + ["J", "Q", "K"]
+    (2..10).to_a.map(&:to_s) + ["J", "Q", "K", "A"]
   end
 
 end
