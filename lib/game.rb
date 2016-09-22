@@ -10,7 +10,7 @@ class Game
 
   def play
     puts "The players are:"
-    @players.each {|player| puts player}
+    @players.each {|player| puts "#{player}"}
 
     until game_over?
       @players.sort! do |a, b|
@@ -22,11 +22,12 @@ class Game
     end
   end
 
+  private
+
   def game_over?
     @players.count {|player| player.pot <= 0} >= @players.length - 1
   end
 
-  private
   def setup_players(player_details)
     player_details.each {|details| setup_new_player(details)}
   end

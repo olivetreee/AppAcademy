@@ -11,8 +11,10 @@ class Player
   end
 
   def action
-    puts "You were dealt: #{@hand.cards.map(&:to_s).join(', ')}."
+    puts
+    puts "#{@name}, you were dealt: #{@hand.cards.map(&:to_s).join(', ')}."
     puts "Your best hand is: #{@hand}."
+    puts "You currently have $#{@pot}"
   end
 
   def self.random_names
