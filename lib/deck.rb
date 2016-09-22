@@ -7,8 +7,11 @@ class Deck
   attr_reader :cards
 
   def initialize
-    @cards = []
     populate_cards
+  end
+
+  def shuffle
+    @cards.shuffle!
   end
 
   def deal_cards(qty)
@@ -21,9 +24,8 @@ class Deck
     dealt_cards
   end
 
-  private
-
   def populate_cards
+    @cards = []
     suits = [:heart, :diamond, :spade, :club]
 
     suits.each do |suit|
@@ -32,6 +34,6 @@ class Deck
       end
     end
 
-    @cards.shuffle!
+    shuffle
   end
 end

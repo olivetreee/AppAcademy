@@ -1,13 +1,18 @@
 require_relative 'hand'
 
 class Player
-  attr_reader :hand, :deck, :pot, :name
+  attr_accessor :pot
+  attr_reader :hand, :deck, :name
 
   def initialize(deck,amount,name=nil)
     @deck = deck
     @pot = amount
-    @hand = Hand.new(@deck)
     @name = name ? name : Player.random_names.sample
+    get_new_hand
+  end
+
+  def get_new_hand
+    @hand = Hand.new(@deck)
   end
 
   def action
