@@ -13,8 +13,9 @@ class ShortenedUrl < ActiveRecord::Base
     class_name: :Visit
 
   has_many :visitors,
+    -> { distinct }, ## sugar for Proc.new { distinct }
     through: :visits,
-    source: :user
+    source: :visitor
 
   def self.random_code
     shortened = SecureRandom::urlsafe_base64
@@ -38,7 +39,7 @@ class ShortenedUrl < ActiveRecord::Base
   end
 
   def num_uniques
-    visits.select(:visitor_id).distinct.count
+    visitors.count
   end
 
   def num_recent_uniques

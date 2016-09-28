@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     class_name: :Visit
 
   has_many :visited_urls,
+    -> { distinct }, ## sugar for Proc.new { distinct }
     through: :visits,
     source: :short_url
-
 end

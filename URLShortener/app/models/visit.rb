@@ -1,7 +1,7 @@
 class Visit < ActiveRecord::Base
   validates :visitor_id, :short_url_id, presence: true
 
-  belongs_to :user,
+  belongs_to :visitor,
     primary_key: :id,
     foreign_key: :visitor_id,
     class_name: :User
