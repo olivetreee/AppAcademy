@@ -17,6 +17,15 @@ class ShortenedUrl < ActiveRecord::Base
     through: :visits,
     source: :visitor
 
+  has_many :taggings,
+    primary_key: :id,
+    foreign_key: :url_id,
+    class_name: :Tagging
+
+  has_many :tag_topics,
+    through: :taggings,
+    source: :tag_topic
+
   def self.random_code
     shortened = SecureRandom::urlsafe_base64
     shortened = SecureRandom::urlsafe_base64 while self.exists?(short_url: shortened)
