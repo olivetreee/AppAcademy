@@ -1,6 +1,19 @@
 class ShortenedUrl < ActiveRecord::Base
   validates :short_url, uniqueness: true
   validates :user_id, presence: true
+  validate :long_url_not_too_long, :not_too_many_submissions
+
+  def long_url_not_too_long
+    if long_url.length > 1024
+      errors[:input_url_length] << "can't be greater than 1024 characters!"
+    end
+  end
+
+  def not_too_many_submissions
+    if num_submissions >= 5
+      errors[:max_submissions_per_minute] << "exceeded limit of 5!"
+    end
+  end
 
   belongs_to :submitter,
     primary_key: :id,
@@ -55,5 +68,11 @@ class ShortenedUrl < ActiveRecord::Base
     recent_visits = Visit.where(["short_url_id = :id AND created_at > :t", {id: self.id, t: 10.minutes.ago}])
 
     recent_visits.select(:visitor_id).distinct.count
+  end
+
+  def num_submissions
+    recent_submissions = ShortenedUrl.where(["user_id = :user_id AND created_at > :t", {user_id: self.user_id, t: 1.minutes.ago}])
+
+    recent_submissions.count
   end
 end
