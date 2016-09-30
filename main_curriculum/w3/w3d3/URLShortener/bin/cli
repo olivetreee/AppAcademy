@@ -1,0 +1,23 @@
+
+print "Enter your email: "
+email = gets.chomp
+user = User.find_by(email: email)
+
+puts "Do you want to 'e'nter a URL or 'v'isit a URL?"
+print "> "
+choice = gets.chomp
+
+case choice
+when 'e'
+  print 'Enter URL to shorten: '
+  long_url = gets.chomp
+  short_url_obj = ShortenedUrl.create_for_user_and_long_url!(user, long_url)
+  puts short_url_obj.short_url
+when 'v'
+  print 'Enter your shortened URL: '
+  short_url = gets.chomp
+  short_url_obj = ShortenedUrl.find_by(short_url: short_url)
+  Launchy.open(short_url_obj.long_url)
+end
+
+puts 'Goodbye!'
