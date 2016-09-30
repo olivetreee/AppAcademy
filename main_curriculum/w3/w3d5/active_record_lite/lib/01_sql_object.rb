@@ -1,4 +1,3 @@
-require 'byebug'
 require_relative 'db_connection'
 require 'active_support/inflector'
 # NB: the attr_accessor we wrote in phase 0 is NOT used in the rest
@@ -15,7 +14,6 @@ class SQLObject
 
   def self.finalize!
     columns.each do |col|
-      # byebug
       define_method("#{col}=") do |val|
         attributes #initializing @attributes if not already
         @attributes[col]=val
@@ -100,7 +98,7 @@ class SQLObject
       "#{col} = '#{@attributes[col]}'"
     end
     set_line = set_line_arguments.drop(1).join(", ") #again, we don't want to update the id column
-    byebug
+
     DBConnection.execute(<<-SQL, row_id)
       UPDATE #{self.class.table_name}
       SET #{set_line}
@@ -109,7 +107,6 @@ class SQLObject
   end
 
   def save
-    # byebug
     attributes.empty? ? insert : update
   end
 end
