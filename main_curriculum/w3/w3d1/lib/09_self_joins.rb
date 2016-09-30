@@ -208,17 +208,16 @@ def start_at_craiglockhart
   # as well as the company and bus no. of the relevant service.
   execute(<<-SQL)
     SELECT
-      end_stop.stop_id, start_stop.company, end_stop.num
+      stops_to.name, route_from.company, route_to.num
     FROM
-      routes AS start_stop
+      routes AS route_from
     JOIN
-      routes AS end_stop ON (start_stop.company = end_stop.company AND
-        start_stop.num = end_stop.num)
+      routes AS route_to ON (route_from.company = route_to.company AND
+        route_from.num = route_to.num)
     JOIN
-      stops ON start_stop.stop_id = stops.id
+      stops AS stops_to ON route_to.stop_id = stops_to.id
     WHERE
-      -- stops.id = '53' IN (end_stop.stop_id)
-      end_stop.pos - start_stop.pos = 1 AND stops.name = 'Craiglockhart'
+      route_from.stop_id = 53
   SQL
 end
 
@@ -226,6 +225,9 @@ def craiglockhart_to_sighthill
   # Find the routes involving two buses that can go from Craiglockhart to
   # Sighthill. Show the bus no. and company for the first bus, the name of the
   # stop for the transfer, and the bus no. and company for the second bus.
+
+  # select all routes that have 213 as stop
+  # select the routes that have 53 as starting AND num IN previous result
   execute(<<-SQL)
   SQL
 end
