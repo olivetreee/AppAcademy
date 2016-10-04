@@ -1,16 +1,15 @@
 class UsersController < ApplicationController
   def index
     render json: User.all
-    # render json: str.to_json
   end
 
   def create
-    user = User.new(params[:user].permit(:name, :email))
-    if user.save!
-      render json: user
+    @user = User.new(user_params)
+    if @user.save!
+      render json: @user
     else
       render(
-        json: user.errors.full_messages, status: :unprocessable_entity
+        json: @user.errors.full_messages, status: :unprocessable_entity #:unprocessable_entity
       )
     end
   end
@@ -21,9 +20,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    user_to_update = User.find(params[:id])
-    user_to_update.update!(user_params)
-    render json: user_to_update
+    @user_to_update = User.find(params[:id])
+    if @user_to_update.update!(user_params)
+      render json: @user_to_update
+    else
+      render(
+        json: @user_to_update.errors.full_messages, status: :unprocessable_entity
+      )
+    end
+
   end
 
   def destroy
@@ -34,6 +39,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:username)
   end
 end

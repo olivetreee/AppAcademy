@@ -13,7 +13,7 @@
 class Contact < ActiveRecord::Base
   validates :name, uniqueness: { scope: :email }
 
-  belongs_to :owner,
+  belongs_to :owner, dependent: :destroy,
     primary_key: :id,
     foreign_key: :user_id,
     class_name: :User
