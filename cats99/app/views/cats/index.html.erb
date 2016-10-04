@@ -1,0 +1,6 @@
+<html>
+<% @cats.each do |cat| %>
+<p> <%= link_to cat.name, "/cats/#{cat.id}" %> </p>
+<% end %>
+
+</html>
