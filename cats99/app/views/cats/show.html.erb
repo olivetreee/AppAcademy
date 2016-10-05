@@ -21,6 +21,21 @@
       <td> <%= @cat.description %> </td>
     </tr>
   </table>
+
+<h3>Current Requests</h3>
+  <table>
+    <tr>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+    <% @cat.cat_rental_requests.sort.each do |req| %>
+    <tr>
+      <td><%= req.start_date %></td>
+      <td><%= req.end_date %></td>
+    </tr>
+    <% end %>
+  </table>
+
   <!-- <p> Name: <%= @cat.name %> </p>
   <p> Sex: <%= @cat.sex %> </p>
   <p> Birth Date: <%= @cat.birth_date %> </p>

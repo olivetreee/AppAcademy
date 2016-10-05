@@ -4,7 +4,10 @@ class Cat < ActiveRecord::Base
   COLORS =  %w(white black brown beige spotted)
 
   validates :color, inclusion: { in: COLORS, message: "%{value} is not a valid color"}
-  validates :sex, inclusion: { in: %w(M, F), message: "%{value} is not a valid sex"}
+  validates :sex, inclusion: { in: %w(M F), message: "%{value} is not a valid sex"}
+
+  has_many :cat_rental_requests, dependent: :destroy
+
 
   def age
     now = Time.now.utc.to_date
