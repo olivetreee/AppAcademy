@@ -1,0 +1,46 @@
+<h2>New track for album <%= @album.name %>:</h2>
+
+<%= render '/shared/errors' %>
+
+<form action="<%= tracks_url %>" method="POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"
+
+  <label for "track_name">Name:</label>
+  <br>
+  <input type="text" name="track[name]" id="track_name">
+  <br>
+  <br>
+
+  <label for "track_album">Album:</label>
+  <br>
+  <select name="track[album_id]" id="track_album">
+    <option selected value="<%= @album.id %>"><%= @album.name %></option>
+  </select>
+  <br>
+  <br>
+
+  <label for "track_type">Type:</label>
+  <br>
+  <% Track::TRACK_TYPES.each do |type| %>
+  <label><%= type.capitalize %>
+  <input type="radio" name="track[track_type]" value="<%= type %>"><br>
+  </label>
+  <% end %>
+  <br>
+  <br>
+
+  <label for "track_position">Position:</label>
+  <br>
+  <input type="number" name="track[position]" id="track_position">
+  <br>
+  <br>
+
+  <label for "track_lyrics">Lyrics:</label>
+  <br>
+  <textarea rows=20 cols=75 name="track[lyrics]" id="track_lyrics"></textarea>
+  <br>
+  <br>
+
+  <button type="submit">Add Track</button>
+
+</form>

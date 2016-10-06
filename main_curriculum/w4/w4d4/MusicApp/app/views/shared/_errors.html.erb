@@ -1,0 +1,5 @@
+<% if flash[:errors] %>
+<% flash[:errors].each do |err| %>
+<p style="color: #e74c3c"><%= err %></p>
+<% end %>
+<% end %>

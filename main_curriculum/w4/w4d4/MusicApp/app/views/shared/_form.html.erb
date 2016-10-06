@@ -1,0 +1,25 @@
+<% action = (params[:controller] == "users" ? users_url : session_url) %>
+<% name_key = (params[:controller] == "users" ? "user" : "session") %>
+<% button_text = (params[:controller] == "users" ? "Create User" : "Log In") %>
+
+
+<%= render '/shared/errors' %>
+
+<form action="<%= action %>" method="POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"
+
+  <label for "email_input">E-mail:</label>
+  <br>
+  <input type="text" name="<%= name_key %>[email]" id="email_input">
+  <br>
+  <br>
+
+  <label for "pwd_input">Password:</label>
+  <br>
+  <input type="password" name="<%= name_key %>[password]" id="pwd_input">
+  <br>
+  <br>
+
+  <button type="submit" ><%= button_text %></button>
+
+</form>

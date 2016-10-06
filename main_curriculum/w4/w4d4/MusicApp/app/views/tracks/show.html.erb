@@ -1,0 +1,18 @@
+<h2><%= @track.name %></h2>
+
+<h3>Artist:</h3>
+<%= link_to @track.band.name, band_url(@track.band) %>
+<br>
+<br>
+
+<h3>Album:</h3>
+<%= link_to @track.album.name, album_url(@track.album) %>
+<br>
+<br>
+
+<h3>Lyrics:</h3>
+<%= @track.lyrics %>
+<br>
+<br>
+
+<h3>Notes:</h3>

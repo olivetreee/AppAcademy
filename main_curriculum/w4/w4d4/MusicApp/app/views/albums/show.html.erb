@@ -1,0 +1,19 @@
+<h2><%= @album.name %>, by <%= link_to @album.band.name, band_url(@album.band) %></h2>
+<%= link_to "(+ Track)", new_album_track_url(@album) %>
+
+<table>
+  <tr style="border-bottom: 2px solid">
+    <th>Name:</th>
+    <th>Type:</th>
+    <th>Position:</th>
+    <th>Lyrics:</th>
+  </tr>
+<% @tracks.each do |track| %>
+  <tr>
+    <td style="width: 50%;"><%= link_to track.name, track_url(track) %></td>
+    <td style="text-align: center; width: 15%;"><%= track.track_type %></td>
+    <td style="text-align: center; width: 15%;"><%= track.position %></td>
+    <td style="text-align: center; width: 20%;"><%= link_to "Lyrics"  %></td>
+  </tr>
+<% end %>
+</table>

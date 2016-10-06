@@ -1,0 +1,34 @@
+<h2>New album by <%= @band.name %>:</h2>
+
+<%= render '/shared/errors' %>
+
+<form action="<%= albums_url %>" method="POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"
+
+  <label for "album_name">Album Name:</label>
+  <br>
+  <input type="text" name="album[name]" id="album_name">
+  <br>
+  <br>
+
+  <label for "album_band">Album Band:</label>
+  <br>
+  <select name="album[band_id]" id="album_band">
+    <option selected value="<%= @band.id %>"><%= @band.name %></option>
+  </select>
+  <br>
+  <br>
+
+  <label for "album_type">Album Type:</label>
+  <br>
+  <% Album::ALBUM_TYPES.each do |type| %>
+  <label><%= type.capitalize %>
+  <input type="radio" name="album[album_type]" value="<%= type %>"><br>
+  </label>
+  <% end %>
+  <br>
+  <br>
+
+  <button type="submit">Add Album</button>
+
+</form>
