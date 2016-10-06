@@ -1,0 +1,12 @@
+<h1>Cats upon cats!</h1>
+<%= render 'shared/messages' %>
+
+<ul>
+  <% @cats.each do |cat| %>
+    <li><%= link_to cat.name, cat_url(cat) %></li>
+  <% end %>
+</ul>
+
+<% if current_user %>
+  <%= link_to "Create cat", new_cat_url %>
+<% end %>
