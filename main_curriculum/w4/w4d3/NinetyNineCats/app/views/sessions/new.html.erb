@@ -1,0 +1,14 @@
+<h1>User Login:</h1>
+<%= render 'shared/messages' %>
+
+<form method="post" action="<%= session_url %>">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="user_name">Username:</label>
+  <input id="user_name" type="text" name="session[user_name]" >
+
+  <label for="password">Password:</label>
+  <input id="password" type="password" name="session[password]" >
+
+  <button>Login</button>
+</form>
