@@ -1,0 +1,9 @@
+<div class="note-form">
+<form action="<%= notes_url %>" method="POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="note[track_id]" value=" <%= track.id %>">
+  <textarea rows=3 cols=100 name="note[content]"></textarea>
+  <br>
+  <button type="submit" >Add Note</button>
+</form>
+</div>

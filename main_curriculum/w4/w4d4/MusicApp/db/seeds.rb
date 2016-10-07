@@ -13,6 +13,8 @@ a3 = Album.create!(name: "One More Car, One More Rider", band_id: 3, album_type:
 a4 = Album.create!(name: "Best of Nirvana", band_id: 4, album_type: "mixed")
 a5 = Album.create!(name: "Unplugged", band_id: 3, album_type: "live")
 
+n1 = Note.create!(content:"Bla bla bla bla bla bl bla bla", track_id: 1, user_id: 3)
+
 t1 = Track.create!(position: 1, name: "Beautiful Day", album_id: 2, track_type: "regular")
 t2 = Track.create!(position: 2, name: "Stuck in a Moment You Can't Get Out Of", album_id: 2, track_type: "regular")
 t3 = Track.create!(position: 3, name: "Elevation", album_id: 2, track_type: "regular")

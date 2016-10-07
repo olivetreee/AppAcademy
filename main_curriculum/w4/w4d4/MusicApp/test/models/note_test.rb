@@ -3,7 +3,7 @@
 # Table name: notes
 #
 #  id         :integer          not null, primary key
-#  note       :text             not null
+#  content    :text             not null
 #  user_id    :integer          not null
 #  track_id   :integer          not null
 #  created_at :datetime         not null

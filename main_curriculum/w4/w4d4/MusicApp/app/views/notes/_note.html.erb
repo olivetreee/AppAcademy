@@ -1,0 +1,9 @@
+<% notes.each do |note| %>
+<div class="note">
+<% if note.user == current_user %>
+  <p class="note-destroy"> <%= link_to "X", note_url(note), method:"delete"%>
+<% end %>
+<p class="note-author"><%= note.user.email %> wrote on <%= note.created_at.strftime("%F") %>:</p>
+<p class="note-content">"<%= note.content %>"</p>
+</div>
+<% end %>

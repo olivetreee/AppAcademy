@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20161006233839) do
   add_index "bands", ["name"], name: "index_bands_on_name", unique: true, using: :btree
 
   create_table "notes", force: :cascade do |t|
-    t.text     "note",       null: false
+    t.text     "content",    null: false
     t.integer  "user_id",    null: false
     t.integer  "track_id",   null: false
     t.datetime "created_at", null: false

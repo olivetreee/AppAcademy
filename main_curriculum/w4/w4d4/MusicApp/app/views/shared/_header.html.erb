@@ -37,7 +37,15 @@
     width: 470px;
   }
 
-  input:focus {
+  textarea {
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  input:focus, textarea:focus {
     outline: none;
   }
 
@@ -53,6 +61,41 @@
 
   .main-list p a:hover {
     background-color: rgba(0,0,0,0.4);
+  }
+
+  .note {
+    background-color: rgba(0,0,0,0.2);
+    margin: 20px 10px;
+    display: block;
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  .note-author {
+    margin: 0 10px;
+    font-weight: 300;
+    color: #7f8c8d;
+  }
+
+  .note-content {
+    margin: 0 10px;
+  }
+
+  .note-form {
+    margin: 20px 10px;
+    display: block;
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  .note-destroy a {
+    color: #e74c3c;
+    text-decoration: none;
+    float: left;
+  }
+
+  .note-destroy {
+    margin: 0;
   }
 
 </style>
