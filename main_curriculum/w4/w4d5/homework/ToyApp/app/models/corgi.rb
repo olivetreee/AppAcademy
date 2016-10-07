@@ -1,3 +1,4 @@
 class Corgi < ActiveRecord::Base
-  has_many :toys, as: :toyable
+  # has_many :toys, as: :toyable
+  include Toyable
 end
