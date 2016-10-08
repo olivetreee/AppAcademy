@@ -18,6 +18,17 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
+  has_many :subs,
+    primary_key: :id,
+    foreign_key: :moderator_id,
+    class_name: :User
+
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Comment
+
+
   def generate_session_token
     SecureRandom.urlsafe_base64(16)
   end

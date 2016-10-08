@@ -1,0 +1,19 @@
+<h2>Create comment:</h2>
+
+<%= render "shared/errors" %>
+
+<form action="<%= post_comments_url %>" method="POST">
+
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+<input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+
+
+<textarea name="comment[content]" rows="8" cols="40"></textarea>
+<br>
+
+<%= button_to "Submit" %>
+
+</form>
+
+<!-- If we enter something here, it should be saved!! -->

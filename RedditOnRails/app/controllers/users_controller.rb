@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     new_user = User.new(user_params)
     if new_user.valid?
       new_user.save!
-      redirect_to new_session_url
+      redirect_to subs_url
     else
       flash[:errors] = new_user.errors.full_messages
       render :new

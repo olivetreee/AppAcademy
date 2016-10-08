@@ -11,10 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007184446) do
+ActiveRecord::Schema.define(version: 20161007224112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content",    null: false
+    t.integer  "post_id",    null: false
+    t.integer  "author_id",  null: false
+    t.integer  "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
+  add_index "comments", ["comment_id"], name: "index_comments_on_comment_id", using: :btree
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
+
+  create_table "post_subs", force: :cascade do |t|
+    t.integer  "sub_id",     null: false
+    t.integer  "post_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "post_subs", ["post_id"], name: "index_post_subs_on_post_id", using: :btree
+  add_index "post_subs", ["sub_id"], name: "index_post_subs_on_sub_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",      null: false
@@ -30,14 +53,14 @@ ActiveRecord::Schema.define(version: 20161007184446) do
   add_index "posts", ["sub_id"], name: "index_posts_on_sub_id", using: :btree
 
   create_table "subs", force: :cascade do |t|
-    t.string   "title",       null: false
+    t.string   "title",        null: false
     t.string   "description"
-    t.integer  "moderator",   null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "moderator_id", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "subs", ["moderator"], name: "index_subs_on_moderator", using: :btree
+  add_index "subs", ["moderator_id"], name: "index_subs_on_moderator_id", using: :btree
   add_index "subs", ["title"], name: "index_subs_on_title", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
