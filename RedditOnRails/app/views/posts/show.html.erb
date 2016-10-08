@@ -1,5 +1,7 @@
 <h1><%= @post.title %></h1>
 
+<%= link_to "(edit)", edit_sub_post_url(@sub, @post) if author? @post%>
+
 <p>Author:</p>
 <p><%= @post.author.username %></p>
 <br>
@@ -14,4 +16,15 @@
 
 <p>URL:</p>
 <p><%= @post.url %></p>
+<br>
+
+<p>Comments:</p>
+<div class="comments">
+  <% @post.comments.each do |comment| %>
+  <div class="each_comment">
+    <p class="comment_author"><%= comment.author.username %> wrote on <%= comment.created_at %></p>
+    <p><%= comment.content %></p>
+  </div>
+  <% end %>
+</div>
 <br>

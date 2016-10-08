@@ -1,0 +1,32 @@
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %> ">
+
+<input type="hidden" name="post[sub_ids][]" value="<%= sub.id %>">
+
+<label for="title">Title:</label>
+<br>
+<input type="text" name="post[title]" id="title" value="<%= post.title %>">
+<br>
+<br>
+
+<label>Other subs:</label>
+<br>
+<% other_subs(sub).each do |other_sub| %>
+<label for="<%= other_sub.title %>"><%= other_sub.title %></label>
+  <input <%= checked? post, other_sub %> type="checkbox" name="post[sub_ids][]" value="<%= other_sub.id %>" id="<%= other_sub.title %>">
+  <br>
+<% end %>
+<br>
+
+<label for="url">URL:</label>
+<br>
+<input type="text" name="post[url]" id="url" value="<%= post.url %>">
+<br>
+
+<label for="content">Content:</label>
+<br>
+<input type="text" name="post[content]" id="content" value="<%= post.content %>">
+<br>
+
+<input type="submit" value="Submit">
+
+</form>
