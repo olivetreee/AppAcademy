@@ -22,7 +22,6 @@ RSpec.describe User, type: :model do
     #     password 'password'
     #   end
     # end
-    user1 = FactoryGirl.create(:user, username:'user1', password:'password')
 
 
     context "invalid credentials" do
@@ -31,11 +30,12 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context "valid credentials" do
-      it "should return user" do
+    it "should valid new user's credentials" do
+      user1 = FactoryGirl.create(:user, username:'user1', password:'password')
+      # it "should return user" do
         # user1 = FactoryGirl.create :user1
         expect(User.find_by_credentials('user1','password')).to eq(user1)
-      end
+      # end
     end
 
 

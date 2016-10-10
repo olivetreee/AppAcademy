@@ -27,7 +27,7 @@ RSpec.describe UsersController, type: :controller do
   describe "GET #show" do
     it "accesses the correct user" do
       get :show, {id: 1}
-      expect(params[:id]).to eq(1)
+      expect(controller.params[:id]).to eq("1")
     end
   end
 end
