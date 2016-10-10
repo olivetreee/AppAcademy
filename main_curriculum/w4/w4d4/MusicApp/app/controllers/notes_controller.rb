@@ -15,8 +15,12 @@ class NotesController < ApplicationController
   def destroy
     note_to_delete = Note.find(params[:id])
     track = note_to_delete.track
-    note_to_delete.destroy
-    redirect_to track_url(track)
+    if current_user == note_to_delete.user
+      note_to_delete.destroy
+      redirect_to track_url(track)
+    else
+      render status: "forbidden", text: "Not your note, dummy"
+    end
   end
 
 

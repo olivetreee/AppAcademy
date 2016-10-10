@@ -1,4 +1,5 @@
 <h2><%= @track.name %></h2>
+<%= link_to "(Edit)", edit_track_url(@track), method: "GET" %>
 
 <h3>Artist:</h3>
 <%= link_to @track.band.name, band_url(@track.band) %>
@@ -11,7 +12,9 @@
 <br>
 
 <h3>Lyrics:</h3>
-<%= @track.lyrics %>
+<% split_lyrics(@track.lyrics).each do |line| %>
+<p><%= line %></p>
+<% end %>
 <br>
 <br>
 

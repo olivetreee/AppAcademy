@@ -8,7 +8,7 @@
     <th>Position:</th>
     <th>Lyrics:</th>
   </tr>
-<% @tracks.each do |track| %>
+<% sorted_tracks.each do |track| %>
   <tr>
     <td style="width: 50%;"><%= link_to track.name, track_url(track) %></td>
     <td style="text-align: center; width: 15%;"><%= track.track_type %></td>

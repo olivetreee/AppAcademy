@@ -2,7 +2,7 @@
 <%= link_to "(+ Band)", new_band_url %>
 
 <div class="main-list">
-<% @bands.each do |band| %>
+<% sorted_bands.each do |band| %>
 <p><a href="<%= band_url(band) %>"><%= band.name %></a></p>
 <% end %>
 </div>
