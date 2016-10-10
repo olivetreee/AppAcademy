@@ -1,0 +1,37 @@
+<h1><%= @link.title %></h1>
+
+<p><%= link_to "Links", links_url %></p>
+
+<p>
+  <%= link_to "Edit Link", edit_link_url(@link) %>
+</p>
+
+<p>
+  <%= @link.user.username %>
+</p>
+
+<p>
+  <%= @link.url %>
+</p>
+
+<ul>
+  <% @link.comments.each do |comment| %>
+  <%= comment.body %>
+  <%= button_to "Remove Comment", comment_url(comment), method: :delete %>
+  <% end %>
+</ul>
+
+<h2>Add Comments</h2>
+
+<%= render "/shared/errors" %>
+
+<form action= "<%= comments_url %>" method="post">
+  <input type="hidden" name="comment[link_id]" value= "<%= @link.id %>">
+  <%= authenticity_token %>
+
+  <label for="comment">Comment</label>
+  <textarea name="comment[body]" id="comment" ></textarea>
+
+  <input type="submit" value="Add Comment">
+
+</form>

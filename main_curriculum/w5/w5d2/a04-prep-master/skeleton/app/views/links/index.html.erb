@@ -1,0 +1,18 @@
+<h1>Links</h1>
+
+<%= link_to "New Link", new_link_url %>
+
+<% @links.each do |link| %>
+<p>
+  <%= link_to link.title, link_url(link) %>
+</p>
+
+<p>
+  <%= link.user %>
+</p>
+
+<p>
+  <%= link.url %>
+</p>
+
+<% end %>
