@@ -1,0 +1,37 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+}
+
+main {
+  margin: 10px;
+}
+
+header {
+  background-color: rgb(255, 56, 80);
+  padding: 10px;
+  color: white;
+}
+
+.comments {
+  background-color: #34495e;
+  padding: 10px;
+  border-radius: 5px;
+  color: #ecf0f1;
+}
+
+.each_comment {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.comment_author {
+  color: #95a5a6;
+  margin: 0;
+}
+
+.each_comment p {
+  margin: 0;
+}

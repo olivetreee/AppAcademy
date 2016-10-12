@@ -1,0 +1,15 @@
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %> ">
+
+<label for="title">Title:</label>
+<br>
+<input type="text" name="sub[title]" id="title" value="<%= sub.title %>">
+<br>
+
+<label for="description">Description:</label>
+<br>
+<input type="text" name="sub[description]" id="description" value="<%= sub.description %>">
+<br>
+
+<input type="submit" value="Submit">
+
+</form>

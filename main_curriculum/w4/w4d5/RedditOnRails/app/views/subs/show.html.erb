@@ -1,0 +1,9 @@
+<h1> <%= @sub.title %></h1>
+
+<%= link_to "(edit)", edit_sub_url(@sub) if moderator? @sub%>
+
+<ul>
+<% @sub.posts.each do |post| %>
+  <li> <%= link_to post.title, sub_post_url(@sub.id, post.id)  %></li>
+<% end %>
+</ul>

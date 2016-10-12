@@ -1,0 +1,6 @@
+<header>
+  <% if current_user %>
+    <p><%= current_user.username %> | <%= link_to "Logout", session_url, method: "delete" %></p>
+  <% end %>
+
+</header>
