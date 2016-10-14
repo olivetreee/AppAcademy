@@ -1,0 +1,24 @@
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  width: 880px;
+}
+
+.square {
+  display: inline-block;
+  width: 32%;
+  height: 33%;
+  background: slategrey;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+
+}
+.square {
+  font-family: sans-serif;
+  color: white;
+  float: left;
+  font-size: 220px;
+  border: 5px solid white;
+}
