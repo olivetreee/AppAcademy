@@ -8,6 +8,13 @@ const Util = {
   randomVec(length) {
     a = Math.random() * length;
     b = Math.pow(Math.pow(length,2) - Math.pow(a,2), 0.5);
+
+    multiplyer = (Math.random() < 0.5) ? -1 : 1;
+    a *= multiplyer
+
+    multiplyer = (Math.random() < 0.5) ? -1 : 1;
+    b *= multiplyer
+
     return [a,b];
   }
 }
