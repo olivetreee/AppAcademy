@@ -44,42 +44,18 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	const GameView = __webpack_require__(6);
 	const Game = __webpack_require__(1);
 	const MovingObject = __webpack_require__(4);
 	const Asteroid = __webpack_require__(2);
 	const Util = __webpack_require__(3);
-	const canvasEl = document.getElementsByTagName("canvas")[0];
-	canvasEl.height = window.innerHeight;
-	canvasEl.width = window.innerWidth;
-	// new Game(
-	//   canvasEl.width,
-	//   canvasEl.height
-	// ).start(canvasEl);
+
 
 	Util.inherits(Asteroid, MovingObject);
-	obj = new MovingObject({ pos: [30, 30], vel: [10, 10], rad: 5, color: "#00FF00"});
-	const ctx = canvasEl.getContext("2d");
-	ast = new Asteroid({pos: [50,50]});
-	// ast.draw(ctx);
-	// ast.move();
-	// ast.draw(ctx);
-	g = new Game(300, 300, 3);
 
-	g.addAsteroids();
-	// console.log(g.asteroids[0].pos);
-	console.log(g.asteroids);
-	g.moveObjects();
-	console.log(g.asteroids);
-	// console.log(g.asteroids[0].pos[0], g.asteroids[0].vel[0]);
-	// g.asteroids[0].move();
-	// console.log(g.asteroids);
+	gv = new GameView;
 
-	// console.log(asteroids);
-	// setInterval(g.draw(ctx), 100);
-	// ast.draw(ctx);
-	// ast.move();
-	// ast.draw(ctx);
-	// obj.draw(ctx);
+	gv.start();
 
 
 /***/ },
@@ -96,7 +72,7 @@
 	}
 
 	Game.prototype.addAsteroids = function() {
-	  while (this.asteroids.length != this.NUM_ASTEROIDS) {
+	  while (this.asteroids.length < this.NUM_ASTEROIDS) {
 	    pos = this.randomPosition();
 	    this.asteroids.push(new Asteroid({pos: pos}))
 	  }
@@ -111,17 +87,12 @@
 	Game.prototype.draw = function(ctx){
 	  ctx.clearRect;
 	  this.asteroids.forEach((ast) => ast.draw(ctx));
-	  console.log(this.asteroids);
 	  this.moveObjects();
-	  console.log(this.asteroids);
 	}
 
 	Game.prototype.moveObjects = function() {
 	  this.asteroids.forEach( (ast) => {
-	    console.log("ASTEROID:");
-	    console.log(ast);
 	    ast.move();
-	    console.log(ast);
 	  });
 	}
 	module.exports = Game;
@@ -204,6 +175,36 @@
 	}
 
 	module.exports = MovingObject;
+
+
+/***/ },
+/* 5 */,
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const Game = __webpack_require__(1);
+
+	function GameView() {
+
+	};
+
+	GameView.prototype.start = function() {
+	  const canvasEl = document.getElementsByTagName("canvas")[0];
+	  canvasEl.height = window.innerHeight;
+	  canvasEl.width = window.innerWidth;
+
+	  ctx = canvasEl.getContext("2d");
+
+	  setInterval(() => {
+	    g = new Game(300, 300, 1);
+	    g.draw(ctx);
+	    g.moveObjects();
+	    // console.log("Asteroid")
+	  }, 20);
+	}
+
+
+	module.exports = GameView;
 
 
 /***/ }

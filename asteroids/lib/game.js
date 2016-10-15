@@ -8,7 +8,7 @@ function Game(dim_x, dim_y, num_asteroids) {
 }
 
 Game.prototype.addAsteroids = function() {
-  while (this.asteroids.length != this.NUM_ASTEROIDS) {
+  while (this.asteroids.length < this.NUM_ASTEROIDS) {
     pos = this.randomPosition();
     this.asteroids.push(new Asteroid({pos: pos}))
   }
@@ -23,17 +23,12 @@ Game.prototype.randomPosition = function() {
 Game.prototype.draw = function(ctx){
   ctx.clearRect;
   this.asteroids.forEach((ast) => ast.draw(ctx));
-  console.log(this.asteroids);
   this.moveObjects();
-  console.log(this.asteroids);
 }
 
 Game.prototype.moveObjects = function() {
   this.asteroids.forEach( (ast) => {
-    console.log("ASTEROID:");
-    console.log(ast);
     ast.move();
-    console.log(ast);
   });
 }
 module.exports = Game;
