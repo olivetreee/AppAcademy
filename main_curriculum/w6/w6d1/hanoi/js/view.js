@@ -5,6 +5,7 @@ class View {
     this.render();
     this.$fromTower = undefined;
     this.$toTower = undefined;
+    this.moves = 0;
   }
 
   //This method is so we can select the number of disks we want to play with. To do that, we'll need more disk classes. This feature is not yet implemented.
@@ -48,6 +49,7 @@ class View {
       })
       towerIdx++;
     })
+    $(".moves-counter h2").text(this.moves);
   }
 
   performScreenMove() {
@@ -87,11 +89,22 @@ class View {
         this.$fromTower = undefined;
         this.$toTower = undefined;
 
+        this.moves++;
         this.render();
       }
 
+
       if (this.game.isWon()) {
-        console.log("Won!");
+        let $winnerLabel = $(".winner-hover");
+        $(".winner-hover h2").append(this.moves);
+
+        $winnerLabel.append("<p>moves</p>");
+
+        $winnerLabel.attr("style", "display: block")
+        $winnerLabel.animate({
+          opacity: 1
+        }, 100);
+
       }
 
     })
