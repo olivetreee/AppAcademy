@@ -89,16 +89,18 @@
 
 	  gameOver(currentPlayer) {
 	    let $winnerLabel = $("<h2></h2>");
+	    let $winnerHover = $(".winner-hover");
 	    $winnerLabel.text(currentPlayer);
-	    $(".winner-hover").append($winnerLabel);
-	    $(".winner-hover").append("<p>WINS</p>");
+	    $winnerHover.append($winnerLabel);
+	    $winnerHover.append("<p>WINS</p>");
 
-	    let winnerClass = `${currentPlayer}-won`;
-	    $(".winner-hover").addClass(winnerClass);
-	    $(".winner-hover").attr("style", "display: block")
+	    // let winnerClass = `${currentPlayer}-won`;
+	    let winnerClass = "x-won";
+	    $winnerHover.addClass(winnerClass);
+	    $winnerHover.attr("style", "display: block")
 
 	    //THIS IS SO SLOW! Figure out why speed is slow.
-	    $(".winner-hover").animate({
+	    $winnerHover.animate({
 	      opacity: 1
 	    }, 100);
 
