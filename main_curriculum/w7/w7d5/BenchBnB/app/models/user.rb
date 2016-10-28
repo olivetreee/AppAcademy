@@ -28,12 +28,10 @@ class User < ActiveRecord::Base
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     return nil unless user
-    self.bcrypt_pwd.is_password?(password) ? user : nil
+    user.bcrypt_pwd.is_password?(password) ? user : nil
   end
 
-
-  private
   def bcrypt_pwd
-    BCrypt::Password.create(self.password_digest)
+    BCrypt::Password.new(self.password_digest)
   end
 end

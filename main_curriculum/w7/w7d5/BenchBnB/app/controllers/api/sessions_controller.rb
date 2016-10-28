@@ -4,20 +4,22 @@ class Api::SessionsController < ApplicationController
     @user = User.find_by_credentials(
     user_params[:username], user_params[:password]
     )
+
     if @user
       login(@user)
-      render "/api/users/view/show"
+      render "api/users/show"
     else
-      render json @user.errors.full_messages
+      render json: "Wrong credentials, dumbass.", status: 404
     end
+
   end
 
   def destroy
     if current_user
       logout
-      render json {}
+      render json: {}
     else
-      render "/public/404"
+      render json: "You're already logged out, dumbass", status: 404
     end
   end
 
