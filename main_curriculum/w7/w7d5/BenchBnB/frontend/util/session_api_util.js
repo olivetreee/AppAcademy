@@ -18,11 +18,10 @@ export const login = (user, success, error) => (
   })
 )
 
-export const logout = (success, error) => (
+export const logout = (success) => (
   $.ajax({
     method: "DELETE",
     url: "api/session",
-    success,
-    error
+    success
   })
 )
