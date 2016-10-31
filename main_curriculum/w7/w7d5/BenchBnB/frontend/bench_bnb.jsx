@@ -1,27 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import configureStore from './store/store';
+import Root from './components/root';
 
 
 /*TESTING*/
 // import { signup, login, logout } from './util/session_api_util';
 import { signup, login, logout } from './actions/session_actions';
-import configureStore from './store/store';
 
 document.addEventListener("DOMContentLoaded", () => {
   const rootEl = document.getElementById("root");
-  ReactDOM.render(<h1>Hello, bench!</h1>, rootEl);
+  const store = configureStore();
+  ReactDOM.render(<Root store={store} />, rootEl);
 
 
   /*TESTING*/
   window.success = (data) => console.log(data);
   window.error = (data) => console.log(data);
   window.logout = logout;
-  window.valid_user = {user: {username: "eric", password: "blabla"}};
   window.invalid_user_1 = {user: {username: "ericc", password: "blabla"}};
   window.invalid_user_2 = {user: {username: "eric", password: "blabl"}};
-  window.store = configureStore(); ///We want the return of configureStore function, which is the createStore function.
   window.login = login;
   window.signup = signup;
+  window.valid_user = {user: {username: "eric", password: "blabla"}};
+  window.store = store; ///We want the return of configureStore function, which is the createStore function.
+  // window.store.dispatch(login(valid_user));
 })
 
 
