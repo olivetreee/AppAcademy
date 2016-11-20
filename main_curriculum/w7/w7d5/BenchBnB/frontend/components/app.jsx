@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import GreetingContainer from './greeting/greeting_container';
 
 const App = ({children}) => (
@@ -9,4 +10,4 @@ const App = ({children}) => (
   </div>
 );
 
-export default App;
+export default withRouter(App);

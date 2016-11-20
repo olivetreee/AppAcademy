@@ -8,7 +8,7 @@ const Greeting = ({currentUser, logout}) => {
         <h2>Howdy, {currentUser.username}!</h2>
         <button onClick={logout}>Logout</button>
       </div>
-    )
+    );
   } else {
     body = (
       <h2>No one here</h2>

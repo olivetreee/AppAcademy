@@ -7,7 +7,10 @@ const mapStateToProps = ({session}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(logout())
+  logout: () => {
+    this.router.push("/login");
+    return dispatch(logout());
+  }
 });
 
 export default connect(
