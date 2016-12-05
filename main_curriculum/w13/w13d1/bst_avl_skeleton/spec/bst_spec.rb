@@ -1,5 +1,6 @@
 require 'rspec'
 require 'bst'
+require 'byebug'
 
 describe BSTNode do
   let(:node) { BSTNode.new(7) }
