@@ -4,36 +4,38 @@ require_relative 'graph'
 # O(|V|**2 + |E|).
 def dijkstra1(source_node)
   shortest_paths = {}
-  shortest_paths[:source_node] = {cost: 0, previous: nil}
-  possible_paths = [source_node]
+  possible_paths = {}
+  possible_paths[source_node] = {cost: 0, previous: nil}
 
   until possible_paths.empty?
-    current_node = extract_lowest_cost(possible_paths)
+    current_node = get_lowest_cost_node(possible_paths)
+    shortest_paths[current_node] = possible_paths[current_node]
     possible_paths.delete(current_node)
 
     current_node.out_edges.each do |edge|
       destination = edge.to_vertex
-      possible_paths << destination
-      shortest_paths[:destination] = {cost: 0, previous: nil}
 
-      new_cost = edge.cost + current_node.cost
-      if (destination.cost > 0 && new_cost < destination.cost)
-        shortest_paths[:destination] = {cost: new_cost, previous: current_node}
+      new_cost = edge.cost + shortest_paths[current_node][:cost]
+
+      # If I have the node on the possible_paths and the new_cost is bigger than the new cost, it doesn't make sense to update the cost. We only update it if:
+      # • the node is not on possible_paths (hence, we initialize it) OR
+      # • the new_cost is lower than the new cost
+
+      if (!possible_paths.has_key?(destination) || new_cost < possible_paths[destination][:cost])
+        possible_paths[destination] = {cost: new_cost, previous: current_node}
       end
     end
   end
   return shortest_paths
 end
 
-def extract_lowest_cost(paths)
+def get_lowest_cost_node(paths)
   costs = []
-  byebug
-  paths.each do |path|
-    byebug
-    costs.push(path[:cost])
+  paths.each do |path, value|
+    costs.push(value[:cost])
   end
   min_cost = costs.min
 
   #Returns the key of the path with the minimum cost
-  paths.select{|k,v| v[:weight] === min_cost}.keys[0]
+  paths.select{|k,v| v[:cost] === min_cost}.keys[0]
 end
